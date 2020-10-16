@@ -52,7 +52,16 @@ const styles = StyleSheet.create({
   overviewContainer: {},
   description: {
     paddingHorizontal: 10,
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    width: Layout.window.width,
   },
-  overviewTitle: { marginBottom: 10, paddingHorizontal: 10 },
+  overviewTitle: {
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    width: Layout.window.width,
+  },
   overviewImage: { marginBottom: 10 },
 });

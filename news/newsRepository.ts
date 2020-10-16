@@ -2,10 +2,11 @@ import { newsApi } from './newsApi';
 import { log } from '../logger';
 import { NewsArticles } from './newsArticle';
 import { Result, Res } from './result';
+import { CategoryForm } from './categories/categoryForm';
 
 const getTopNewsByCountryAndCategory = async (
   country: string,
-  category = '',
+  category?: CategoryForm,
 ): Promise<Result<NewsArticles, NewsError>> => {
   try {
     const response = await newsApi.fetchTopNews(country, category);
