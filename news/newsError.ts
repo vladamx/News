@@ -1,0 +1,3 @@
+type NewsError = {
+  reason: string;
+};
