@@ -9,5 +9,5 @@ export const NewsText: FunctionComponent<TextInputProps> = (
 };
 
 const styles = {
-  fontFamily: { fontFamily: 'space-mono' },
+  fontFamily: { fontFamily: 'open-sans' },
 };

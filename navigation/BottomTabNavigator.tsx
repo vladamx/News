@@ -7,9 +7,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SearchScreen } from '../news/search';
 import { TopNewsScreen } from '../news/top';
 import { CategoriesScreen } from '../news/categories';
+import { NewsText } from '../components/NewsText';
 
 export type BottomTabScreens = {
-  'Top News': undefined;
+  TopNews: undefined;
   Categories: undefined;
   Search: undefined;
 };
@@ -18,13 +19,21 @@ const BottomTab = createBottomTabNavigator<BottomTabScreens>();
 
 export default function BottomTabNavigator() {
   return (
-    <BottomTab.Navigator initialRouteName="Top News">
+    <BottomTab.Navigator initialRouteName="TopNews">
       <BottomTab.Screen
-        name="Top News"
+        name="TopNews"
         component={TopNewsNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-trending-up" color={color} />
+          tabBarLabel: ({ focused }) => (
+            <NewsText style={{ color: focused ? 'black' : 'grey' }}>
+              Top News
+            </NewsText>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name="ios-trending-up"
+              color={focused ? 'black' : 'grey'}
+            />
           ),
         }}
       />
@@ -32,8 +41,17 @@ export default function BottomTabNavigator() {
         name="Categories"
         component={CategoriesNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="file-tree" size={24} color={color} />
+          tabBarLabel: ({ focused }) => (
+            <NewsText style={{ color: focused ? 'black' : 'grey' }}>
+              Categories
+            </NewsText>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <MaterialCommunityIcons
+              name="file-tree"
+              size={24}
+              color={focused ? 'black' : 'grey'}
+            />
           ),
         }}
       />
@@ -41,8 +59,13 @@ export default function BottomTabNavigator() {
         name="Search"
         component={SearchNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-search" color={color} />
+          tabBarLabel: ({ focused }) => (
+            <NewsText style={{ color: focused ? 'black' : 'grey' }}>
+              Search
+            </NewsText>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon name="ios-search" color={focused ? 'black' : 'grey'} />
           ),
         }}
       />
@@ -66,7 +89,14 @@ function TopNewsNavigator() {
       <TopNewsStack.Screen
         name="TopNewsScreen"
         component={TopNewsScreen}
-        options={{ headerTitle: 'Top News from GB' }}
+        options={{
+          headerTitleStyle: {
+            fontFamily: 'open-sans-semi-bold',
+            fontWeight: '600',
+          },
+          headerTitleAlign: 'left',
+          headerTitle: 'Top News from GB',
+        }}
       />
     </TopNewsStack.Navigator>
   );
@@ -81,6 +111,11 @@ function CategoriesNavigator() {
         name="CategoriesScreen"
         component={CategoriesScreen}
         options={{
+          headerTitleStyle: {
+            fontFamily: 'open-sans-semi-bold',
+            fontWeight: '600',
+          },
+          headerTitleAlign: 'left',
           headerTitle: 'Top 5 news from GB',
         }}
       />
@@ -96,7 +131,14 @@ function SearchNavigator() {
       <SearchStack.Screen
         name="SearchScreen"
         component={SearchScreen}
-        options={{ headerTitle: 'Search Top News from GB by term' }}
+        options={{
+          headerTitleAlign: 'left',
+          headerTitleStyle: {
+            fontFamily: 'open-sans-semi-bold',
+            fontWeight: '600',
+          },
+          headerTitle: 'Search Top News from GB',
+        }}
       />
     </SearchStack.Navigator>
   );

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { NewsText } from '../../components/NewsText';
+import { NewsArticles } from '../NewsArticles';
 
 export const TopNewsScreen = () => {
   return (
     <View style={styles.container}>
-      <NewsText style={styles.title}>Top News</NewsText>
+      <NewsArticles />
     </View>
   );
 };
@@ -13,11 +13,9 @@ export const TopNewsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 10,
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
 });
