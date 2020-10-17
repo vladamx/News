@@ -8,12 +8,11 @@ const fetchTopNews = (
   country: string,
   category?: CategoryForm,
 ): Promise<NewsArticleDto | ApiErrorDto> => {
-  log.debug(`News api: ${category}`);
   const baseUrl = `${environment.topNews.api}?apiKey=${environment.topNews.apiKey}&country=${country}`;
   const urlCategorized = !category
     ? baseUrl
     : `${baseUrl}&category=${category.name}`;
-  const newsUrlCategorizedLimit = category?.limit
+  const newsUrlCategorizedLimit = !category?.limit
     ? urlCategorized
     : `${urlCategorized}&pageSize=${category?.limit}`;
   log.info(`News api: GET ${newsUrlCategorizedLimit}`);
