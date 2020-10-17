@@ -3,13 +3,11 @@ import { FlatList, StyleSheet, View, Image } from 'react-native';
 import { NewsArticle } from '../newsArticle';
 import { NewsArticleOverview } from '../NewsArticleOverview';
 import { NewsText } from '../../components/NewsText';
-import { FunctionComponent, useEffect, useRef } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { useNewsArticles } from '../useNewsArticles';
 import { NewsError } from '../../components/NewsError';
 import { log } from '../../logger';
 import { useNavigation } from '@react-navigation/native';
-import { categoryConfig } from './config';
-import { Category } from './category';
 
 const Item: FunctionComponent<NewsArticle> = ({
   title,
@@ -42,13 +40,13 @@ const renderItem = ({ item }: { item: NewsArticle; index: number }) => (
 
 const itemSeparator = () => <View style={styles.itemSeparator} />;
 
-export const TopNewsPerCategory: FunctionComponent<{
-  category: string;
-  viewability: Record<Category, boolean>;
-}> = ({ category, viewability }) => {
-  const { data: articles, error, loading } = useNewsArticles('gb', category);
-  const listRef = useRef<FlatList<NewsArticle> | null>(null);
-  const intervalRef = useRef<number | null>(null);
+export const CategoryAllArticles: FunctionComponent<{ category: string }> = ({
+  category,
+}) => {
+  const { data: articles, error, loading } = useNewsArticles('gb', {
+    name: category,
+  });
+
   useEffect(() => {
     if (!articles) {
       return;
@@ -59,38 +57,6 @@ export const TopNewsPerCategory: FunctionComponent<{
       );
     });
   }, [articles]);
-
-  useEffect(() => {
-    if (!viewability[category] && intervalRef.current) {
-      log.debug(`Category list: cleared interval for ${category}`);
-      clearInterval(intervalRef.current);
-    }
-    return () => {};
-  }, [viewability, category]);
-
-  useEffect(() => {
-    if (!listRef.current && !articles?.length) {
-      return () => {};
-    }
-    if (!viewability[category]) {
-      return () => {};
-    }
-    let index = -1;
-    intervalRef.current = setInterval(() => {
-      if (index >= 0) {
-        listRef.current?.scrollToIndex({ index: index });
-      }
-      index += 1;
-      if (index === articles?.length) {
-        index = 0;
-      }
-    }, 1500);
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [viewability, category, articles]);
 
   // NOTE: In real production app, we would probably need
   // to implement timeouts and retries
@@ -109,12 +75,9 @@ export const TopNewsPerCategory: FunctionComponent<{
     <View style={styles.container}>
       <FlatList
         scrollEnabled
-        ref={(ref) => {
-          listRef.current = ref;
-        }}
-        horizontal={true}
-        initialNumToRender={categoryConfig.topLimit}
-        showsHorizontalScrollIndicator={false}
+        initialNumToRender={4}
+        maxToRenderPerBatch={6}
+        showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={itemSeparator}
         ListEmptyComponent={<NewsText>No News Available :(</NewsText>}
         data={articles}

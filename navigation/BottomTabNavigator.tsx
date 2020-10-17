@@ -8,6 +8,7 @@ import { SearchScreen } from '../news/search';
 import { TopNewsScreen } from '../news/top';
 import { CategoriesScreen } from '../news/categories';
 import { NewsText } from '../components/NewsText';
+import { CategoryAllArticles } from '../news/categories/CategoryAllArticles';
 
 export type BottomTabScreens = {
   TopNews: undefined;
@@ -102,13 +103,18 @@ function TopNewsNavigator() {
   );
 }
 
-const CategoriesStack = createStackNavigator();
+export type CategoriesStackScreens = {
+  Categories: undefined;
+  CategoryAllArticles: { name: string };
+};
+
+const CategoriesStack = createStackNavigator<CategoriesStackScreens>();
 
 function CategoriesNavigator() {
   return (
     <CategoriesStack.Navigator>
       <CategoriesStack.Screen
-        name="CategoriesScreen"
+        name="Categories"
         component={CategoriesScreen}
         options={{
           headerTitleStyle: {
@@ -118,6 +124,20 @@ function CategoriesNavigator() {
           headerTitleAlign: 'left',
           headerTitle: 'Top 5 news from GB',
         }}
+      />
+      <CategoriesStack.Screen
+        name="CategoryAllArticles"
+        component={CategoryAllArticles}
+        options={({ route }) => ({
+          title: route.params?.name ?? 'Category Articles',
+          headerBackTitle: 'Back',
+          headerTintColor: 'black',
+          headerBackTitleStyle: {
+            color: 'black',
+            fontFamily: 'open-sans',
+          },
+          headerShown: true,
+        })}
       />
     </CategoriesStack.Navigator>
   );
