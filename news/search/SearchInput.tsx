@@ -1,4 +1,9 @@
-import React, { useRef, useEffect, FunctionComponent } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  FunctionComponent,
+  useCallback,
+} from 'react';
 import {
   View,
   StyleSheet,
@@ -9,6 +14,7 @@ import {
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { debounce } from 'debounce';
 
 interface SearchStationsTextInputProps {
   onSearchQueryChange: (query: string) => void;
@@ -48,13 +54,15 @@ export const SearchInput: FunctionComponent<SearchStationsTextInputProps> = ({
     }
   }, [isFocused]);
 
+  const onQueryChange = useCallback(debounce(onSearchQueryChange, 400), []);
+
   return (
     <View style={[styles.search]}>
       <SearchIcon color={'black'} style={styles.icon} />
       <View style={styles.inputContainer}>
         <TextInput
           placeholder={'Search'}
-          onChangeText={onSearchQueryChange}
+          onChangeText={onQueryChange}
           autoCorrect={false}
           selectionColor="black"
           autoCompleteType="off"
