@@ -17,7 +17,7 @@ export const NewsArticleDetailsScreen: FunctionComponent = () => {
   } = params;
   return (
     <View style={styles.overviewContainer}>
-      <NewsArticleOverview overview={{ title, image, description }} />
+      <NewsArticleOverview {...{ title, image, description }} />
       <NewsText style={styles.content}>{content}</NewsText>
     </View>
   );

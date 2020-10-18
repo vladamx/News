@@ -3,37 +3,34 @@ import { FlatList, StyleSheet, View, Image } from 'react-native';
 import { NewsArticle } from './newsArticle';
 import { NewsArticleOverview } from './NewsArticleOverview';
 import { NewsText } from '../components/NewsText';
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent, useEffect, memo } from 'react';
 import { useNewsArticles } from './useNewsArticles';
 import { NewsError } from '../components/NewsError';
 import { log } from '../logger';
 import { useNavigation } from '@react-navigation/native';
 import { FilterForm } from './filterForm';
 
-const Item: FunctionComponent<NewsArticle> = ({
-  title,
-  description,
-  image,
-  content,
-}) => {
-  const navigation = useNavigation();
-  return (
-    <NewsArticleOverview
-      onPress={() => {
-        navigation.navigate('NewsArticlesDetails', {
-          name: title,
-          article: {
-            title,
-            description,
-            image,
-            content,
-          },
-        });
-      }}
-      overview={{ title, image, description }}
-    />
-  );
-};
+const Item: FunctionComponent<NewsArticle> = memo(
+  ({ title, description, image, content }) => {
+    const navigation = useNavigation();
+    return (
+      <NewsArticleOverview
+        onPress={() => {
+          navigation.navigate('NewsArticlesDetails', {
+            name: title,
+            article: {
+              title,
+              description,
+              image,
+              content,
+            },
+          });
+        }}
+        {...{ title, image, description }}
+      />
+    );
+  },
+);
 
 const renderItem = ({ item }: { item: NewsArticle; index: number }) => (
   <Item {...item} />

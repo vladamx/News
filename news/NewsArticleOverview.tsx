@@ -13,12 +13,13 @@ import Layout from '../shared/Layout';
 import { NewsTitle } from '../components/NewsTitle';
 
 type NewsArticleOverview = {
-  overview: Pick<NewsArticle, 'title' | 'image' | 'description'>;
   onPress?: () => void;
-};
+} & Pick<NewsArticle, 'title' | 'image' | 'description'>;
 
 export const NewsArticleOverview: FunctionComponent<NewsArticleOverview> = ({
-  overview: { title, description, image },
+  title,
+  description,
+  image,
   onPress,
 }) => {
   const Touchable = onPress ? TouchableOpacity : TouchableWithoutFeedback;
