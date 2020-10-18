@@ -12,6 +12,6 @@ export type NewsArticleDto = {
     url: string;
     urlToImage: string;
     publishedAt: string;
-    content: string;
+    content?: string;
   }[];
 };

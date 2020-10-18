@@ -3,6 +3,7 @@ import { log } from '../logger';
 import { NewsArticles } from './newsArticle';
 import { Result, Res } from './result';
 import { FilterForm } from './filterForm';
+import { escapeHtml } from '../util/escapeHtml';
 
 const getTopNews = async (
   country: string,
@@ -18,8 +19,8 @@ const getTopNews = async (
             articleId: article.url,
             title: article.title,
             image: article.urlToImage,
-            description: article.description,
-            content: article.content,
+            description: escapeHtml(article.description),
+            content: escapeHtml(article.content ?? ''),
           };
         }),
       );
