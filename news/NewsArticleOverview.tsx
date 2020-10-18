@@ -37,7 +37,7 @@ export const NewsArticleOverview: FunctionComponent<NewsArticleOverview> = ({
           style={[
             {
               width: Layout.window.width,
-              height: Layout.window.width / 1.25,
+              height: Layout.window.width / 1.77,
             },
             styles.overviewImage,
           ]}

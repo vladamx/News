@@ -6,6 +6,7 @@ import useCachedResources from './useCachedResources';
 import Navigation from './navigation';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 import { NewsTitle } from './components/NewsTitle';
+import { DEFAULT_APP_THEME, ThemeContext } from './theme';
 
 const ErrorFallback: FunctionComponent<FallbackProps> = ({ error }) => {
   return (
@@ -28,8 +29,10 @@ export default function App() {
         }}
       >
         <SafeAreaProvider>
-          <Navigation />
-          <StatusBar />
+          <ThemeContext.Provider value={DEFAULT_APP_THEME}>
+            <Navigation />
+            <StatusBar />
+          </ThemeContext.Provider>
         </SafeAreaProvider>
       </ErrorBoundary>
     );
