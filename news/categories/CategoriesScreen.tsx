@@ -71,7 +71,10 @@ export const CategoriesScreen = () => {
       renderItem={({ item }) => (
         // Item for the FlatListItems
         <View style={{ marginTop: 10, minHeight: Layout.window.height * 0.6 }}>
-          <CategoryTopArticles viewability={viewability} category={item} />
+          <CategoryTopArticles
+            viewability={viewability}
+            category={{ tag: 'category', name: item }}
+          />
         </View>
       )}
       keyExtractor={(item, index) => `${index}`}

@@ -1,26 +1,21 @@
 import { useEffect, useState } from 'react';
 import { newsService } from './newsService';
 import { NewsArticles } from './newsArticle';
-import { CategoryForm } from './categories/categoryForm';
+import { FilterForm } from './filterForm';
 
-export const useNewsArticles = (country: string, category?: CategoryForm) => {
+export const useNewsArticles = (country: string, filter?: FilterForm) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<NewsArticles | undefined>();
   const [error, setError] = useState<NewsError | undefined>();
   useEffect(() => {
+    console.log('filter changed');
+  }, [filter]);
+
+  useEffect(() => {
     let mounted = true;
-    const request = () => {
-      if (category?.limit && category?.name) {
-        return newsService.getAllNewsArticlesByCategory(country, category.name);
-      }
-      if (category?.name) {
-        return newsService.getTopNewsArticlesByCategory(country, category.name);
-      }
-      return newsService.getAllTopNewsArticles(country);
-    };
     setLoading(true);
     setError(undefined);
-    request().then((articles) => {
+    newsService.getAllTopNewsArticles(country, filter).then((articles) => {
       if (!mounted) {
         return;
       }
@@ -36,7 +31,7 @@ export const useNewsArticles = (country: string, category?: CategoryForm) => {
     return () => {
       mounted = false;
     };
-  }, [country, category]);
+  }, [country, filter]);
   return {
     loading,
     error,

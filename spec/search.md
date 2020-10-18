@@ -7,5 +7,7 @@ Tasks:
 
 [x] Search UI
     [x] Search input
-    [ ] Result list ui
+    [x] Result list ui
 [] Search list integration
+    [x] Add search query to repository
+    [] Debounce input

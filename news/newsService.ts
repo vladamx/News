@@ -1,25 +1,10 @@
 import { newsRepository } from './newsRepository';
-import { categoryConfig } from './categories/config';
+import { FilterForm } from './filterForm';
 
-const getAllTopNewsArticles = (country: string) => {
-  return newsRepository.getTopNewsByCountryAndCategory(country);
-};
-
-const getTopNewsArticlesByCategory = (country: string, category: string) => {
-  return newsRepository.getTopNewsByCountryAndCategory(country, {
-    name: category,
-    limit: categoryConfig.topLimit,
-  });
-};
-
-const getAllNewsArticlesByCategory = (country: string, category: string) => {
-  return newsRepository.getTopNewsByCountryAndCategory(country, {
-    name: category,
-  });
+const getAllTopNewsArticles = (country: string, filter?: FilterForm) => {
+  return newsRepository.getTopNews(country, filter);
 };
 
 export const newsService = {
   getAllTopNewsArticles,
-  getTopNewsArticlesByCategory,
-  getAllNewsArticlesByCategory,
 };

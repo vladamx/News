@@ -2,14 +2,14 @@ import { newsApi } from './newsApi';
 import { log } from '../logger';
 import { NewsArticles } from './newsArticle';
 import { Result, Res } from './result';
-import { CategoryForm } from './categories/categoryForm';
+import { FilterForm } from './filterForm';
 
-const getTopNewsByCountryAndCategory = async (
+const getTopNews = async (
   country: string,
-  category?: CategoryForm,
+  filter?: FilterForm,
 ): Promise<Result<NewsArticles, NewsError>> => {
   try {
-    const response = await newsApi.fetchTopNews(country, category);
+    const response = await newsApi.fetchTopNews(country, filter);
     if (response.status === 'ok') {
       log.info(`News repository: ${response.totalResults} articles loaded`);
       return Res.Ok(
@@ -33,5 +33,5 @@ const getTopNewsByCountryAndCategory = async (
 };
 
 export const newsRepository = {
-  getTopNewsByCountryAndCategory,
+  getTopNews,
 };

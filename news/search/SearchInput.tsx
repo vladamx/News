@@ -43,6 +43,8 @@ export const SearchInput: FunctionComponent<SearchStationsTextInputProps> = ({
           textInputRef?.current?.focus();
         }, 1);
       });
+    } else {
+      textInputRef.current?.blur();
     }
   }, [isFocused]);
 

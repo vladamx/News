@@ -8,6 +8,7 @@ import { useNewsArticles } from './useNewsArticles';
 import { NewsError } from '../components/NewsError';
 import { log } from '../logger';
 import { useNavigation } from '@react-navigation/native';
+import { FilterForm } from './filterForm';
 
 const Item: FunctionComponent<NewsArticle> = ({
   title,
@@ -40,8 +41,10 @@ const renderItem = ({ item }: { item: NewsArticle; index: number }) => (
 
 const itemSeparator = () => <View style={styles.itemSeparator} />;
 
-export const NewsArticles = () => {
-  const { data: articles, error, loading } = useNewsArticles('gb');
+export const NewsArticles: FunctionComponent<{ filter?: FilterForm }> = ({
+  filter,
+}) => {
+  const { data: articles, error, loading } = useNewsArticles('gb', filter);
 
   useEffect(() => {
     if (!articles) {
@@ -71,6 +74,7 @@ export const NewsArticles = () => {
     <View style={styles.container}>
       <FlatList
         scrollEnabled
+        keyboardShouldPersistTaps="always"
         initialNumToRender={4}
         maxToRenderPerBatch={6}
         showsVerticalScrollIndicator={false}

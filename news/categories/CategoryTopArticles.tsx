@@ -3,13 +3,14 @@ import { FlatList, StyleSheet, View, Image } from 'react-native';
 import { NewsArticle } from '../newsArticle';
 import { NewsArticleOverview } from '../NewsArticleOverview';
 import { NewsText } from '../../components/NewsText';
-import { FunctionComponent, useEffect, useRef } from 'react';
+import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useNewsArticles } from '../useNewsArticles';
 import { NewsError } from '../../components/NewsError';
 import { log } from '../../logger';
 import { useNavigation } from '@react-navigation/native';
 import { categoryConfig } from './config';
 import { Category } from './category';
+import { CategoryForm } from '../filterForm';
 
 const Item: FunctionComponent<NewsArticle> = ({
   title,
@@ -43,12 +44,14 @@ const renderItem = ({ item }: { item: NewsArticle; index: number }) => (
 const itemSeparator = () => <View style={styles.itemSeparator} />;
 
 export const CategoryTopArticles: FunctionComponent<{
-  category: string;
+  category: CategoryForm;
   viewability: Record<Category, boolean>;
 }> = ({ category, viewability }) => {
-  const { data: articles, error, loading } = useNewsArticles('gb', {
-    name: category,
-  });
+  const [categoryForm] = useState(category);
+  const { data: articles, error, loading } = useNewsArticles(
+    'gb',
+    categoryForm,
+  );
   const listRef = useRef<FlatList<NewsArticle> | null>(null);
   const intervalRef = useRef<number | null>(null);
   useEffect(() => {
@@ -63,8 +66,8 @@ export const CategoryTopArticles: FunctionComponent<{
   }, [articles]);
 
   useEffect(() => {
-    if (!viewability[category] && intervalRef.current) {
-      log.debug(`Category list: cleared interval for ${category}`);
+    if (!viewability[category.name] && intervalRef.current) {
+      log.debug(`Category list: cleared interval for ${category.name}`);
       clearInterval(intervalRef.current);
     }
     return () => {};
@@ -74,7 +77,7 @@ export const CategoryTopArticles: FunctionComponent<{
     if (!listRef.current && !articles?.length) {
       return () => {};
     }
-    if (!viewability[category]) {
+    if (!viewability[category.name]) {
       return () => {};
     }
     let index = -1;
