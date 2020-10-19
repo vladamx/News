@@ -42,6 +42,7 @@ export const DEFAULT_APP_THEME = {
     l: 30,
     xl: 40,
   },
+  // Theme can also support reusable styles (variants) for components like buttons
 };
 
 export const ThemeContext = React.createContext<AppTheme>(DEFAULT_APP_THEME);

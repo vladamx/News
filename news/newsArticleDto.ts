@@ -8,10 +8,10 @@ export type NewsArticleDto = {
     };
     author: string;
     title: string;
-    description: string;
     url: string;
     urlToImage: string;
     publishedAt: string;
+    description?: string;
     content?: string;
   }[];
 };

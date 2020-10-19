@@ -7,26 +7,26 @@ export type RootStackScreens = {
   NewsArticlesDetails: { name: string; article: NewsArticle };
 };
 
-import BottomTabNavigator from './BottomTabNavigator';
-import { NewsArticleDetailsScreen } from '../news/NewsArticleDetailsScreen';
-import { NewsArticle } from '../news/newsArticle';
+import { NewsArticleDetailsScreen } from './NewsArticleDetailsScreen';
+import { NewsArticle } from './newsArticle';
+import { NewsTabNavigator } from './NewsTabNavigator';
 
-export default function Navigation() {
+export const NewsNavigation = () => {
   return (
     <NavigationContainer>
       <RootNavigator />
     </NavigationContainer>
   );
-}
+};
 
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackScreens>();
 
-function RootNavigator() {
+const RootNavigator = () => {
   return (
     <Stack.Navigator mode={'modal'} screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
+      <Stack.Screen name="Root" component={NewsTabNavigator} />
       <Stack.Screen
         name="NewsArticlesDetails"
         options={({ route }) => ({
@@ -43,4 +43,4 @@ function RootNavigator() {
       />
     </Stack.Navigator>
   );
-}
+};

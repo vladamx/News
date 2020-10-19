@@ -20,3 +20,6 @@ Tasks:
     [x] Category form
         [x] Default limit
     [x] Category form serialization to api url
+
+[] Pagination
+    [] Modify api logic to support pagination for categories

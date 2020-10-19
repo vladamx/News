@@ -9,14 +9,14 @@ Tasks:
 
 [x] NewsArticles UI
 [x] NewsArticle overview UI
-[ ] Source filter UI
+[x] Source filter UI
 [x] Error UI
 
 [x] NewsArticles list integration
     [x] Environment variables
     [x] Data layers
     [x] Custom hook for integrating data with React
-[ ] Source filter integration 
+[x] Source filter integration 
 
-[ ] NewsArticles pagination
-[ ] NewsArticles pull to refresh
+[x] NewsArticles pagination
+[x] NewsArticles pull to refresh

@@ -8,6 +8,9 @@ Tasks:
 [x] Search UI
     [x] Search input
     [x] Result list ui
-[] Search list integration
+[x] Search list integration
     [x] Add search query to repository
-    [] Debounce input
+    [x] Debounce input
+[] Pagination
+    [] Modify api logic to support pagination for search
+    [] Extract default page size

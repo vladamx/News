@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { FunctionComponent } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
 
 import useCachedResources from './useCachedResources';
-import Navigation from './navigation';
+import { NewsNavigation } from './news/NewsNavigation';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 import { NewsTitle } from './components/NewsTitle';
 import { DEFAULT_APP_THEME, ThemeContext } from './theme';
+import { store } from './store';
 
 const ErrorFallback: FunctionComponent<FallbackProps> = ({ error }) => {
   return (
@@ -22,19 +24,21 @@ export default function App() {
     return null;
   } else {
     return (
-      <ErrorBoundary
-        FallbackComponent={ErrorFallback}
-        onReset={() => {
-          // reset the state of your app so the error doesn't happen again
-        }}
-      >
-        <SafeAreaProvider>
-          <ThemeContext.Provider value={DEFAULT_APP_THEME}>
-            <Navigation />
-            <StatusBar />
-          </ThemeContext.Provider>
-        </SafeAreaProvider>
-      </ErrorBoundary>
+      <Provider store={store}>
+        <ErrorBoundary
+          FallbackComponent={ErrorFallback}
+          onReset={() => {
+            // reset the state of your app so the error doesn't happen again
+          }}
+        >
+          <SafeAreaProvider>
+            <ThemeContext.Provider value={DEFAULT_APP_THEME}>
+              <NewsNavigation />
+              <StatusBar />
+            </ThemeContext.Provider>
+          </SafeAreaProvider>
+        </ErrorBoundary>
+      </Provider>
     );
   }
 }

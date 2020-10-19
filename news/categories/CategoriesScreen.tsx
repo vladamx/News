@@ -6,8 +6,8 @@ import { NewsSubTitle } from '../../components/NewsSubTitle';
 import Layout from '../../shared/Layout';
 import { useCallback, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { CategoriesStackScreens } from '../../navigation/BottomTabNavigator';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { CategoriesStackScreens } from './CategoriesStack';
 
 // NOTE: Probably needs fine tuning, but the logic should work just fine
 const viewabilityConfig = {
@@ -70,10 +70,10 @@ export const CategoriesScreen = () => {
       )}
       renderItem={({ item }) => (
         // Item for the FlatListItems
-        <View style={{ marginTop: 10, minHeight: Layout.window.height * 0.6 }}>
+        <View style={{ marginTop: 10, minHeight: Layout.window.height * 0.5 }}>
           <CategoryTopArticles
             viewability={viewability}
-            category={{ tag: 'category', name: item }}
+            category={{ tag: 'category', name: item, page: 0, pageSize: 5 }}
           />
         </View>
       )}

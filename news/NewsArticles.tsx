@@ -41,7 +41,14 @@ const itemSeparator = () => <View style={styles.itemSeparator} />;
 export const NewsArticles: FunctionComponent<{ filter?: FilterForm }> = ({
   filter,
 }) => {
-  const { data: articles, error, loading } = useNewsArticles('gb', filter);
+  const {
+    initialLoading,
+    data: articles,
+    error,
+    refreshing,
+    loadMore,
+    onRefresh,
+  } = useNewsArticles(filter);
 
   useEffect(() => {
     if (!articles) {
@@ -59,7 +66,7 @@ export const NewsArticles: FunctionComponent<{ filter?: FilterForm }> = ({
   // in order to mitigate indefinite loading states
   // and network segregation problems
 
-  if (loading) {
+  if (initialLoading) {
     return <NewsText>Loading ...</NewsText>;
   }
 
@@ -78,6 +85,10 @@ export const NewsArticles: FunctionComponent<{ filter?: FilterForm }> = ({
         ItemSeparatorComponent={itemSeparator}
         ListEmptyComponent={<NewsText>No News Available :(</NewsText>}
         data={articles}
+        onRefresh={onRefresh}
+        refreshing={refreshing}
+        onEndReachedThreshold={0}
+        onEndReached={loadMore}
         renderItem={renderItem}
         keyExtractor={(item, index) => `${item.articleId}${index}`}
       />

@@ -12,18 +12,21 @@ const getTopNews = async (
   try {
     const response = await newsApi.fetchTopNews(country, filter);
     if (response.status === 'ok') {
-      log.info(`News repository: ${response.totalResults} articles loaded`);
-      return Res.Ok(
-        response.articles.map((article) => {
+      log.info(
+        `News repository: ${response.articles.length} articles loaded out of ${response.totalResults}`,
+      );
+      return Res.Ok({
+        totalResults: response.totalResults,
+        articles: response.articles.map((article) => {
           return {
             articleId: article.url,
             title: article.title,
             image: article.urlToImage,
-            description: escapeHtml(article.description),
+            description: escapeHtml(article.description ?? ''),
             content: escapeHtml(article.content ?? ''),
           };
         }),
-      );
+      });
     }
     log.info(`News repository: ${response.message}`);
     return Res.Err({ reason: response.message });

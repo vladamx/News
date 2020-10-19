@@ -6,7 +6,7 @@ export type NewsArticle = {
   content: string;
 };
 
-export type NewsArticles = NewsArticle[];
+export type NewsArticles = { articles: NewsArticle[]; totalResults: number };
 export const newsArticles: NewsArticles = [
   {
     articleId: '0',

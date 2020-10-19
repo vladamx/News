@@ -45,10 +45,7 @@ export const CategoryTopArticles: FunctionComponent<{
   viewability: Record<Category, boolean>;
 }> = ({ category, viewability }) => {
   const [categoryForm] = useState(category);
-  const { data: articles, error, loading } = useNewsArticles(
-    'gb',
-    categoryForm,
-  );
+  const { data: articles, error, loading } = useNewsArticles(categoryForm);
   const listRef = useRef<FlatList<NewsArticle> | null>(null);
   const intervalRef = useRef<number | null>(null);
   useEffect(() => {
@@ -86,7 +83,7 @@ export const CategoryTopArticles: FunctionComponent<{
       if (index === articles?.length) {
         index = 0;
       }
-    }, 1500);
+    }, 2000);
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);

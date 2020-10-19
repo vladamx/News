@@ -12,9 +12,9 @@ const fetchTopNews = (
   if (filter?.tag === 'category') {
     const category = filter;
     let categoryUrl = `${baseUrl}&category=${category.name}`;
-    categoryUrl = !category?.limit
+    categoryUrl = !category?.pageSize
       ? categoryUrl
-      : `${categoryUrl}&pageSize=${category?.limit}`;
+      : `${categoryUrl}&pageSize=${category?.pageSize}`;
     log.info(`News api: GET ${categoryUrl}`);
     return fetch(categoryUrl).then((response) => response.json());
   }
@@ -22,6 +22,13 @@ const fetchTopNews = (
     const searchUrl = `${baseUrl}&q=${filter.search}`;
     log.info(`News api: GET ${searchUrl}`);
     return fetch(searchUrl).then((response) => response.json());
+  }
+  if (filter?.tag === 'pagination') {
+    const paginationUrl = `${baseUrl}&page=${filter.page}&pageSize=${
+      filter.pageSize ?? 20
+    }`;
+    log.info(`News api: GET ${paginationUrl}`);
+    return fetch(paginationUrl).then((response) => response.json());
   }
   log.info(`News api: GET ${baseUrl}`);
   return fetch(baseUrl).then((response) => response.json());
