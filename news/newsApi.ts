@@ -8,10 +8,12 @@ const fetchTopNews = (
   country: string,
   filter?: FilterForm,
 ): Promise<NewsArticleDto | ApiErrorDto> => {
-  const baseUrl = `${environment.topNews.api}?apiKey=${environment.topNews.apiKey}&country=${country}`;
+  const baseUrl = `${environment.topNews.api}?apiKey=${
+    environment.topNews.apiKey
+  }&country=${country.toLowerCase()}`;
   if (filter?.tag === 'category') {
     const category = filter;
-    let categoryUrl = `${baseUrl}&category=${category.name}`;
+    let categoryUrl = `${baseUrl}&category=${category.name.toLowerCase()}`;
     categoryUrl = !category?.pageSize
       ? categoryUrl
       : `${categoryUrl}&pageSize=${category?.pageSize}`;
