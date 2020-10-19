@@ -1,9 +1,16 @@
 import * as React from 'react';
-import { FlatList, StyleSheet, View, Image } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { NewsArticle } from '../newsArticle';
 import { NewsArticleOverview } from '../NewsArticleOverview';
 import { NewsText } from '../../components/NewsText';
-import { FunctionComponent, useEffect, useRef, useState, memo } from 'react';
+import {
+  FunctionComponent,
+  useEffect,
+  useRef,
+  useState,
+  memo,
+  useCallback,
+} from 'react';
 import { useNewsArticles } from '../useNewsArticles';
 import { NewsError } from '../../components/NewsError';
 import { log } from '../../logger';
@@ -48,16 +55,6 @@ export const CategoryTopArticles: FunctionComponent<{
   const { data: articles, error, loading } = useNewsArticles(categoryForm);
   const listRef = useRef<FlatList<NewsArticle> | null>(null);
   const intervalRef = useRef<number | null>(null);
-  useEffect(() => {
-    if (!articles) {
-      return;
-    }
-    articles.forEach(({ image }) => {
-      Image.prefetch(image).catch(() =>
-        log.debug('News articles image prefetch unsuccessful'),
-      );
-    });
-  }, [articles]);
 
   useEffect(() => {
     if (!viewability[category.name] && intervalRef.current) {
@@ -77,7 +74,9 @@ export const CategoryTopArticles: FunctionComponent<{
     let index = -1;
     intervalRef.current = setInterval(() => {
       if (index >= 0) {
-        listRef.current?.scrollToIndex({ index: index });
+        requestAnimationFrame(() =>
+          listRef.current?.scrollToIndex({ index: index }),
+        );
       }
       index += 1;
       if (index === articles?.length) {
@@ -90,6 +89,11 @@ export const CategoryTopArticles: FunctionComponent<{
       }
     };
   }, [viewability, category, articles]);
+
+  const onScrollToIndexFailed = useCallback(() => {
+    // NOTE: Here we could implement some sophisticated retry logic
+    log.info('Scroll to index failed');
+  }, []);
 
   // NOTE: In real production app, we would probably need
   // to implement timeouts and retries
@@ -112,6 +116,7 @@ export const CategoryTopArticles: FunctionComponent<{
           listRef.current = ref;
         }}
         horizontal={true}
+        onScrollToIndexFailed={onScrollToIndexFailed}
         initialNumToRender={categoryConfig.topLimit}
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={itemSeparator}

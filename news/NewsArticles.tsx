@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { FlatList, StyleSheet, View, Image } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { NewsArticle } from './newsArticle';
 import { NewsArticleOverview } from './NewsArticleOverview';
 import { NewsText } from '../components/NewsText';
-import { FunctionComponent, useEffect, memo } from 'react';
+import { FunctionComponent, memo } from 'react';
 import { useNewsArticles } from './useNewsArticles';
 import { NewsError } from '../components/NewsError';
-import { log } from '../logger';
 import { useNavigation } from '@react-navigation/native';
 import { FilterForm } from './filterForm';
 
@@ -49,17 +48,6 @@ export const NewsArticles: FunctionComponent<{ filter?: FilterForm }> = ({
     loadMore,
     onRefresh,
   } = useNewsArticles(filter);
-
-  useEffect(() => {
-    if (!articles) {
-      return;
-    }
-    articles.forEach(({ image }) => {
-      Image.prefetch(image).catch(() =>
-        log.debug('News articles image prefetch unsuccessful'),
-      );
-    });
-  }, [articles]);
 
   // NOTE: In real production app, we would probably need
   // to implement timeouts and retries
