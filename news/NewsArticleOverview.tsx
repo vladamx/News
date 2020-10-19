@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Image,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -11,6 +10,7 @@ import { NewsText } from '../components/NewsText';
 import { FunctionComponent } from 'react';
 import Layout from '../shared/Layout';
 import { NewsTitle } from '../components/NewsTitle';
+import { Image } from 'react-native-expo-image-cache';
 
 type NewsArticleOverview = {
   onPress?: () => void;
@@ -33,7 +33,6 @@ export const NewsArticleOverview: FunctionComponent<NewsArticleOverview> = ({
       <View>
         <NewsTitle style={styles.overviewTitle}>{title}</NewsTitle>
         <Image
-          defaultSource={require('../assets/images/placeholder.png')}
           style={[
             {
               width: Layout.window.width,
@@ -41,7 +40,7 @@ export const NewsArticleOverview: FunctionComponent<NewsArticleOverview> = ({
             },
             styles.overviewImage,
           ]}
-          source={{ uri: image }}
+          {...{ uri: image }}
         />
         <NewsText style={styles.description}>{description}</NewsText>
       </View>

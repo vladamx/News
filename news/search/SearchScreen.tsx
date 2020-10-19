@@ -13,7 +13,7 @@ export const SearchScreen = () => {
           setQuery(searchQuery);
         }}
       />
-      <NewsArticles filter={{ tag: 'search', search: query }} />
+      <NewsArticles filter={{ tag: 'search', search: query, page: 1 }} />
     </View>
   );
 };

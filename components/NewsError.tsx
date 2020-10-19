@@ -16,7 +16,6 @@ export const NewsError: FunctionComponent<{ reason: string }> = ({
 const styles = {
   errorContainer: {
     backgroundColor: 'red',
-    borderRadius: 20,
     padding: 20,
   },
   reason: {
