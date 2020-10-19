@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -32,16 +33,19 @@ export const NewsArticleOverview: FunctionComponent<NewsArticleOverview> = ({
     >
       <View>
         <NewsTitle style={styles.overviewTitle}>{title}</NewsTitle>
-        <Image
-          style={[
-            {
-              width: Layout.window.width,
-              height: Layout.window.width / 1.77,
-            },
-            styles.overviewImage,
-          ]}
-          {...{ uri: image }}
-        />
+        <View style={styles.cover}>
+          <ActivityIndicator animating={true} />
+          <Image
+            style={[
+              {
+                width: Layout.window.width,
+                height: Layout.window.width / 1.7778,
+              },
+              styles.overviewImage,
+            ]}
+            {...{ uri: image }}
+          />
+        </View>
         <NewsText style={styles.description}>{description}</NewsText>
       </View>
     </Touchable>
@@ -63,5 +67,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: Layout.window.width,
   },
-  overviewImage: { marginBottom: 10 },
+  cover: {
+    width: Layout.window.width,
+    height: Layout.window.width / 1.7778,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  overviewImage: { ...StyleSheet.absoluteFillObject },
 });
