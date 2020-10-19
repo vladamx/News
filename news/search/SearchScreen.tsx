@@ -10,7 +10,7 @@ export const SearchScreen = () => {
     <View style={styles.container}>
       <SearchInput
         onSearchQueryChange={(searchQuery: string) => {
-          setQuery(searchQuery);
+          setQuery(searchQuery.trim());
         }}
       />
       <NewsArticles filter={{ tag: 'search', search: query, page: 1 }} />
