@@ -8,8 +8,8 @@ import { CountryDisplay } from './CountryDisplay';
 
 export const CountryFilter: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const country = useSelector(
-    (state: RootState) => state.countryFilter.country,
+  const country = useSelector((state: RootState) =>
+    state.countryFilter.country === 'GB' ? 'US' : 'GB',
   );
   const countryEnabled = useSelector(
     (state: RootState) => state.countryFilter.enabled,

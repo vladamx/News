@@ -14,8 +14,8 @@ export type CategoriesStackScreens = {
 const CategoriesStack = createStackNavigator<CategoriesStackScreens>();
 
 export const CategoriesNavigator = () => {
-  const selectedCountry = useSelector((state: RootState) =>
-    state.countryFilter.country === 'GB' ? 'US' : 'GB',
+  const selectedCountry = useSelector(
+    (state: RootState) => state.countryFilter.country,
   );
   return (
     <CategoriesStack.Navigator>

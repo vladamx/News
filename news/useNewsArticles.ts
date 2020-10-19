@@ -7,8 +7,8 @@ import { RootState } from '../store';
 import { useIsFocused } from '@react-navigation/native';
 
 export const useNewsArticles = (filter?: FilterForm) => {
-  const selectedCountry = useSelector((state: RootState) =>
-    state.countryFilter.country === 'GB' ? 'US' : 'GB',
+  const selectedCountry = useSelector(
+    (state: RootState) => state.countryFilter.country,
   );
   const [page, setPage] = useState(1);
   const [refresh, setRefresh] = useState(true);

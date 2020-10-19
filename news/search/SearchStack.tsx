@@ -8,8 +8,8 @@ import { RootState } from '../../store';
 const SearchStack = createStackNavigator();
 
 export const SearchNavigator = () => {
-  const selectedCountry = useSelector((state: RootState) =>
-    state.countryFilter.country === 'GB' ? 'US' : 'GB',
+  const selectedCountry = useSelector(
+    (state: RootState) => state.countryFilter.country,
   );
   return (
     <SearchStack.Navigator>
