@@ -1,11 +1,20 @@
+import { dateTime } from './util/dateTime';
+
+// NOTE: Simple logging utility. Can be expanded to support multiple transports
+// i.e 3-rd party crash reporting, analytics ...
+
+const tagDateTime = (message: string) => {
+  return `${dateTime('HH:MM:SS:SSS')} ${message}`;
+};
+
 export const log = {
   debug(message: string) {
-    console.log(`DEBUG: ${message}`);
+    console.log(tagDateTime(`DEBUG: ${message}`));
   },
   error(message: string) {
-    console.log(`ERROR: ${message}`);
+    console.log(tagDateTime(`ERROR: ${message}`));
   },
   info(message: string) {
-    console.log(`INFO: ${message}`);
+    console.log(tagDateTime(`INFO: ${message}`));
   },
 };
