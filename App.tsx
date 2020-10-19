@@ -9,6 +9,7 @@ import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 import { NewsTitle } from './components/NewsTitle';
 import { DEFAULT_APP_THEME, ThemeContext } from './theme';
 import { store } from './store';
+import { UIManager, Platform } from 'react-native';
 
 const ErrorFallback: FunctionComponent<FallbackProps> = ({ error }) => {
   return (
@@ -17,6 +18,13 @@ const ErrorFallback: FunctionComponent<FallbackProps> = ({ error }) => {
     </NewsTitle>
   );
 };
+
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
