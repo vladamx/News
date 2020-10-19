@@ -6,7 +6,8 @@
     "ios": "yarn run start --ios",
     "build:ios": "expo build:ios",
     "build:android": "expo build:android",
-    "test": "jest --watchAll",
+    "test:watch": "jest --watchAll",
+    "test": "jest",
     "compile": "tsc --noEmit",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prettier:fix": "prettier --write  ./**/*.{js,ts,tsx}"
@@ -51,6 +52,7 @@
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@react-native-community/eslint-config": "^1.1.0",
+    "@types/jest": "^26.0.14",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
