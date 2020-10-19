@@ -15,6 +15,7 @@ import {
 import { useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { debounce } from 'debounce';
+import { useTranslation } from 'react-i18next';
 
 interface SearchStationsTextInputProps {
   onSearchQueryChange: (query: string) => void;
@@ -31,6 +32,7 @@ export const SearchInput: FunctionComponent<SearchStationsTextInputProps> = ({
 }) => {
   const textInputRef = useRef<TextInput>();
   const isFocused = useIsFocused();
+  const [t] = useTranslation('newsTranslations');
 
   /**
    * Autofocus opens keyboard automatically when navigating to Search, but
@@ -61,7 +63,7 @@ export const SearchInput: FunctionComponent<SearchStationsTextInputProps> = ({
       <SearchIcon color={'black'} style={styles.icon} />
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder={'Search'}
+          placeholder={t('search')}
           onChangeText={onQueryChange}
           autoCorrect={false}
           selectionColor="black"

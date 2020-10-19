@@ -16,7 +16,7 @@ export const countryFilterSlice = createSlice({
   name: 'countryFilter',
   reducers: {
     toggleCountry: (state) => {
-      state.country = state.country === 'GB' ? 'US' : 'GB';
+      state.country = state.country === 'US' ? 'IT' : 'US';
     },
     setCountryFilterEnabled: (state, { payload }: PayloadAction<boolean>) => {
       state.enabled = payload;

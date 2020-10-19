@@ -3,8 +3,7 @@ import { CategoriesScreen } from './CategoriesScreen';
 import { CategoryAllArticles } from './CategoryAllArticles';
 import * as React from 'react';
 import { CountryFilter } from '../CountryFilter';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useTranslation } from 'react-i18next';
 
 export type CategoriesStackScreens = {
   Categories: undefined;
@@ -14,9 +13,8 @@ export type CategoriesStackScreens = {
 const CategoriesStack = createStackNavigator<CategoriesStackScreens>();
 
 export const CategoriesNavigator = () => {
-  const selectedCountry = useSelector(
-    (state: RootState) => state.countryFilter.country,
-  );
+  const [t] = useTranslation('newsTranslations');
+
   return (
     <CategoriesStack.Navigator>
       <CategoriesStack.Screen
@@ -29,17 +27,15 @@ export const CategoriesNavigator = () => {
           },
           headerRight: () => <CountryFilter />,
           headerTitleAlign: 'left',
-          headerTitle: `Top 5 news from ${selectedCountry}`,
+          headerTitle: t('topNews'),
         }}
       />
       <CategoriesStack.Screen
         name="CategoryAllArticles"
         component={CategoryAllArticles}
         options={({ route }) => ({
-          title: `${
-            route.params?.name ?? 'Category Articles'
-          } in ${selectedCountry}`,
-          headerBackTitle: 'Back',
+          title: `${route.params?.name ?? 'Placeholder'}`,
+          headerBackTitle: t('back'),
           headerTintColor: 'black',
           headerBackTitleStyle: {
             color: 'black',

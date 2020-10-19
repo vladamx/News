@@ -2,15 +2,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { TopNewsScreen } from './TopNewsScreen';
 import * as React from 'react';
 import { CountryFilter } from '../CountryFilter';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useTranslation } from 'react-i18next';
 
 const TopNewsStack = createStackNavigator();
 
 export const TopNewsNavigator = () => {
-  const selectedCountry = useSelector(
-    (state: RootState) => state.countryFilter.country,
-  );
+  const [t] = useTranslation('newsTranslations');
+
   return (
     <TopNewsStack.Navigator>
       <TopNewsStack.Screen
@@ -23,7 +21,7 @@ export const TopNewsNavigator = () => {
           },
           headerRight: () => <CountryFilter />,
           headerTitleAlign: 'left',
-          headerTitle: `Top News from ${selectedCountry}`,
+          headerTitle: t('topNews'),
         }}
       />
     </TopNewsStack.Navigator>

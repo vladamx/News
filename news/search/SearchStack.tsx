@@ -2,15 +2,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SearchScreen } from './SearchScreen';
 import * as React from 'react';
 import { CountryFilter } from '../CountryFilter';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useTranslation } from 'react-i18next';
 
 const SearchStack = createStackNavigator();
 
 export const SearchNavigator = () => {
-  const selectedCountry = useSelector(
-    (state: RootState) => state.countryFilter.country,
-  );
+  const [t] = useTranslation('newsTranslations');
+
   return (
     <SearchStack.Navigator>
       <SearchStack.Screen
@@ -23,7 +21,7 @@ export const SearchNavigator = () => {
             fontWeight: '600',
           },
           headerRight: () => <CountryFilter />,
-          headerTitle: `Search top news from ${selectedCountry}`,
+          headerTitle: t('search'),
         }}
       />
     </SearchStack.Navigator>

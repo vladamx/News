@@ -10,6 +10,7 @@ import { NewsTitle } from './components/NewsTitle';
 import { DEFAULT_APP_THEME, ThemeContext } from './theme';
 import { store } from './store';
 import { UIManager, Platform } from 'react-native';
+import './i18n';
 
 const ErrorFallback: FunctionComponent<FallbackProps> = ({ error }) => {
   return (

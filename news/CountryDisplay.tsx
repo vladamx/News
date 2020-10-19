@@ -3,7 +3,7 @@ import { Image, StyleSheet } from 'react-native';
 import { FunctionComponent } from 'react';
 import { Country } from './country';
 
-const gbFlag = require('../assets/images/GB.png');
+const itFlag = require('../assets/images/IT.png');
 const usFlag = require('../assets/images/US.png');
 
 export const CountryDisplay: FunctionComponent<{ country: Country }> = ({
@@ -18,7 +18,7 @@ export const CountryDisplay: FunctionComponent<{ country: Country }> = ({
         },
         styles.countryFilter,
       ]}
-      source={country === 'GB' ? gbFlag : usFlag}
+      source={country === 'IT' ? itFlag : usFlag}
     />
   );
 };

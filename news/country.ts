@@ -1,1 +1,1 @@
-export type Country = 'GB' | 'US';
+export type Country = 'US' | 'IT';
