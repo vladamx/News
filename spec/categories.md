@@ -9,7 +9,7 @@ Tasks:
 
 [x] Categories List UI
     [x] Section List
-    [ ] Collapse category sections
+    [x] Collapse category sections
 [x] Category slider UI
     [x] Automatic slider
     [x] Only viewable categories should slide
@@ -21,5 +21,5 @@ Tasks:
         [x] Default limit
     [x] Category form serialization to api url
 
-[] Pagination
-    [] Modify api logic to support pagination for categories
+[x] Pagination
+    [x] Support pagination for categories

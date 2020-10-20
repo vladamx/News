@@ -1,6 +1,6 @@
 import { Action, combineReducers, configureStore } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
-import { countryFilterSlice } from './news/countryFilterSlice';
+import { countryFilterSlice } from './news/country-filter/countryFilterSlice';
 
 export const rootReducer = combineReducers({
   countryFilter: countryFilterSlice.reducer,

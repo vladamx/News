@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { newsService } from './newsService';
-import { NewsArticles } from './newsArticle';
-import { FilterForm } from './filterForm';
+import { newsService } from './data/newsService';
+import { NewsArticles } from './data/newsArticle';
+import { FilterForm } from './data/filterForm';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { useIsFocused } from '@react-navigation/native';

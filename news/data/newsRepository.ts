@@ -1,13 +1,13 @@
 import { newsApi } from './newsApi';
-import { log } from '../logger';
+import { log } from '../../logger';
 import { NewsArticles } from './newsArticle';
-import { Result, Res } from './result';
+import { Result, Res } from '../../result';
 import { FilterForm } from './filterForm';
-import { escapeHtml } from '../util/escapeHtml';
+import { escapeHtml } from '../../util/escapeHtml';
 
 const getTopNews = async (
   country: string,
-  filter?: FilterForm,
+  filter: FilterForm,
 ): Promise<Result<NewsArticles, NewsError>> => {
   try {
     const response = await newsApi.fetchTopNews(country, filter);

@@ -3,8 +3,8 @@ import { Image, StyleSheet } from 'react-native';
 import { FunctionComponent } from 'react';
 import { Country } from './country';
 
-const itFlag = require('../assets/images/IT.png');
-const usFlag = require('../assets/images/US.png');
+const itFlag = require('../../assets/images/IT.png');
+const usFlag = require('../../assets/images/US.png');
 
 export const CountryDisplay: FunctionComponent<{ country: Country }> = ({
   country,

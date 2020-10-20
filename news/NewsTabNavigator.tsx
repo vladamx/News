@@ -25,7 +25,10 @@ export const NewsTabNavigator = () => {
   const [t] = useTranslation('newsTranslations');
 
   return (
-    <BottomTab.Navigator initialRouteName="TopNews">
+    <BottomTab.Navigator
+      tabBarOptions={{ keyboardHidesTabBar: true }}
+      initialRouteName="TopNews"
+    >
       <BottomTab.Screen
         name="TopNews"
         component={TopNewsNavigator}

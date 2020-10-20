@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { NewsArticle } from './newsArticle';
+import { NewsArticle } from './data/newsArticle';
 import { NewsArticleOverview } from './NewsArticleOverview';
 import { NewsText } from '../components/NewsText';
 import { FunctionComponent, memo } from 'react';
 import { useNewsArticles } from './useNewsArticles';
 import { NewsError } from '../components/NewsError';
 import { useNavigation } from '@react-navigation/native';
-import { FilterForm } from './filterForm';
+import { FilterForm } from './data/filterForm';
 
 const Item: FunctionComponent<NewsArticle> = memo(
   ({ title, description, image, content }) => {
@@ -75,7 +75,7 @@ export const NewsArticles: FunctionComponent<{ filter?: FilterForm }> = ({
         data={articles}
         onRefresh={onRefresh}
         refreshing={refreshing}
-        onEndReachedThreshold={0}
+        onEndReachedThreshold={2}
         onEndReached={loadMore}
         renderItem={renderItem}
         keyExtractor={(item, index) => `${item.articleId}${index}`}

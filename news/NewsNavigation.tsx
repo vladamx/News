@@ -3,10 +3,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
 import { NewsArticleDetailsScreen } from './NewsArticleDetailsScreen';
-import { NewsArticle } from './newsArticle';
+import { NewsArticle } from './data/newsArticle';
 import { NewsTabNavigator } from './NewsTabNavigator';
 import { useTranslation } from 'react-i18next';
 import { ellipsis } from '../util/ellipsis';
+import { Platform } from 'react-native';
 
 export type RootStackScreens = {
   Root: undefined;
@@ -35,7 +36,10 @@ const RootNavigator = () => {
         name="NewsArticlesDetails"
         options={({ route }) => ({
           // NOTE: ellipsis necessary to fit back title properly
-          title: ellipsis(route.params?.name ?? 'Placeholder', 15),
+          title: Platform.select({
+            ios: ellipsis(route.params?.name ?? 'Placeholder', 15),
+            android: route.params?.name ?? 'Placeholder',
+          }),
           headerBackTitle: t('back'),
           headerTintColor: 'black',
           headerBackTitleStyle: {

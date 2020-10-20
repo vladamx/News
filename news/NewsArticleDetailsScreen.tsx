@@ -6,7 +6,7 @@ import { useRoute, RouteProp, useFocusEffect } from '@react-navigation/native';
 import { RootStackScreens } from './NewsNavigation';
 import { NewsArticleOverview } from './NewsArticleOverview';
 import { useDispatch } from 'react-redux';
-import { setCountryFilterEnabled } from './countryFilterSlice';
+import { setCountryFilterEnabled } from './country-filter/countryFilterSlice';
 
 type NewsArticleDetailsRoute = RouteProp<
   RootStackScreens,

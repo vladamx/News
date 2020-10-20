@@ -1,90 +1,52 @@
-import React, {
-  useRef,
-  useEffect,
-  FunctionComponent,
-  useCallback,
-} from 'react';
-import {
-  View,
-  StyleSheet,
-  InteractionManager,
-  TextInput,
-  ActivityIndicator,
-  TextStyle,
-} from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
+import React, { useRef, FunctionComponent, useCallback, memo } from 'react';
+import { View, StyleSheet, TextInput, TextStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { debounce } from 'debounce';
 import { useTranslation } from 'react-i18next';
+import { useInputAutoFocusOnScreenFocus } from './useInputAutoFocusOnScreenFocus';
 
 interface SearchStationsTextInputProps {
   onSearchQueryChange: (query: string) => void;
-  loading?: boolean;
+  value: string;
 }
 
 const SearchIcon = (props: { color: string; style: TextStyle }) => {
   return <Ionicons size={30} {...props} name="ios-search" />;
 };
 
-export const SearchInput: FunctionComponent<SearchStationsTextInputProps> = ({
-  onSearchQueryChange,
-  loading = false,
-}) => {
-  const textInputRef = useRef<TextInput>();
-  const isFocused = useIsFocused();
-  const [t] = useTranslation('newsTranslations');
+// NOTE: Search input is uncontrolled and memoized component in order to avoid performance problems
+export const SearchInput: FunctionComponent<SearchStationsTextInputProps> = memo(
+  ({ onSearchQueryChange, value }) => {
+    const textInputRef = useRef<TextInput>();
+    const [t] = useTranslation('newsTranslations');
 
-  /**
-   * Autofocus opens keyboard automatically when navigating to Search, but
-   * keyboard opening has slow performance and blocks displaying content of Search
-   * instantly.
-   *
-   * The solution here is to focus the text input with a timeout right after Search
-   * page is displayed.
-   */
-  useEffect(() => {
-    if (isFocused) {
-      InteractionManager.runAfterInteractions(() => {
-        // NOTE: Set timeout is safety precaution
-        // because sometimes keyboard doesn't show on Android
-        setTimeout(() => {
-          textInputRef?.current?.focus();
-        }, 1);
-      });
-    } else {
-      textInputRef.current?.blur();
-    }
-  }, [isFocused]);
+    useInputAutoFocusOnScreenFocus(textInputRef);
 
-  const onQueryChange = useCallback(debounce(onSearchQueryChange, 400), []);
+    const onQueryChange = useCallback(debounce(onSearchQueryChange, 400), []);
 
-  return (
-    <View style={[styles.search]}>
-      <SearchIcon color={'black'} style={styles.icon} />
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder={t('search')}
-          onChangeText={onQueryChange}
-          autoCorrect={false}
-          selectionColor="black"
-          autoCompleteType="off"
-          returnKeyType="done"
-          placeholderTextColor="grey"
-          style={[styles.input, { backgroundColor: 'white' }]}
-          ref={(r: TextInput) => {
-            textInputRef.current = r;
-          }}
-        />
-        <ActivityIndicator
-          animating={loading}
-          style={styles.loadingIndicator}
-          size={16}
-          color="black"
-        />
+    return (
+      <View style={[styles.search]}>
+        <SearchIcon color={'black'} style={styles.icon} />
+        <View style={styles.inputContainer}>
+          <TextInput
+            onChangeText={onQueryChange}
+            autoCorrect={false}
+            defaultValue={value}
+            selectTextOnFocus={true}
+            placeholder={t('search')}
+            autoCompleteType="off"
+            returnKeyType="done"
+            placeholderTextColor="#cccccc"
+            style={[styles.input, { backgroundColor: 'white' }]}
+            ref={(r: TextInput) => {
+              textInputRef.current = r;
+            }}
+          />
+        </View>
       </View>
-    </View>
-  );
-};
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   search: {
@@ -93,13 +55,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
   },
   icon: { marginRight: 5 },
   inputContainer: { flex: 1 },
   input: {
-    height: 40,
+    height: 46,
     fontSize: 15,
+    paddingVertical: 10,
     flexGrow: 1,
   },
   loadingIndicator: {

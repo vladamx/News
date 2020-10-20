@@ -18,8 +18,19 @@ in order to use 3-rd party native dependency and/or not rely on Expo's proprieta
 
 - Node.js - refer to .nvmrc for a version of node this project is built with
 
-## Local usage
+## Emulator usage
 
 - Run ios/android emulator
-- Do ```yarn ios/android```
+- Do ```yarn ios``` or ```yarn android```
 
+## Device usage
+
+- Do ```yarn ios``` or ```yarn android```
+- Install Expo client from PlayStore/AppStore on your device
+- Scan QRCode that you can see in terminal after you have done the first step
+
+## Pre-built applications
+.ipa and apk files are located in build folder.
+You can load them either via adb(android) or dragging the .ipa to ios simulator
+
+For more information, refer to the [installation guide](https://docs.expo.io/distribution/building-standalone-apps/#5-test-it-on-your-device-or)

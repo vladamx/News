@@ -3,10 +3,10 @@ import { TouchableOpacity } from 'react-native';
 import { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCountry } from './countryFilterSlice';
-import { RootState } from '../store';
+import { RootState } from '../../store';
 import { CountryDisplay } from './CountryDisplay';
 import i18n from 'i18next';
-import { log } from '../logger';
+import { log } from '../../logger';
 
 export const CountryFilter: FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export const CountryFilter: FunctionComponent = () => {
       onPress={() => {
         dispatch(toggleCountry());
         return i18n
-          .changeLanguage(country.toLowerCase())
+          .changeLanguage(country === 'US' ? 'en' : 'it')
           .catch((err) => log.error(err));
       }}
     >

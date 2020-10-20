@@ -11,6 +11,6 @@ Tasks:
 [x] Search list integration
     [x] Add search query to repository
     [x] Debounce input
-[] Pagination
-    [] Modify api logic to support pagination for search
-    [] Extract default page size
+[x] Pagination
+    [x] Support pagination for search
+    [x] Extract default page size

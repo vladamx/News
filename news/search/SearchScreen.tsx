@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NewsArticles } from '../NewsArticles';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SearchInput } from './SearchInput';
 
 export const SearchScreen = () => {
@@ -9,9 +9,10 @@ export const SearchScreen = () => {
   return (
     <View style={styles.container}>
       <SearchInput
-        onSearchQueryChange={(searchQuery: string) => {
+        value={query}
+        onSearchQueryChange={useCallback((searchQuery: string) => {
           setQuery(searchQuery.trim());
-        }}
+        }, [])}
       />
       <NewsArticles filter={{ tag: 'search', search: query, page: 1 }} />
     </View>

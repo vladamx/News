@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { TopNewsScreen } from './TopNewsScreen';
 import * as React from 'react';
-import { CountryFilter } from '../CountryFilter';
+import { CountryFilter } from '../country-filter/CountryFilter';
 import { useTranslation } from 'react-i18next';
 
 const TopNewsStack = createStackNavigator();

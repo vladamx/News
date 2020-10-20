@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { NewsArticle } from './newsArticle';
+import { NewsArticle } from './data/newsArticle';
 import { NewsText } from '../components/NewsText';
 import { FunctionComponent } from 'react';
 import Layout from '../shared/Layout';
@@ -34,7 +34,7 @@ export const NewsArticleOverview: FunctionComponent<NewsArticleOverview> = ({
       <View>
         <NewsTitle style={styles.overviewTitle}>{title}</NewsTitle>
         <View style={styles.cover}>
-          <ActivityIndicator animating={true} />
+          <ActivityIndicator size="large" color="black" animating={true} />
           <Image
             style={[
               {

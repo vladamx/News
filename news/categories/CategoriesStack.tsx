@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { CategoriesScreen } from './CategoriesScreen';
 import { CategoryAllArticles } from './CategoryAllArticles';
 import * as React from 'react';
-import { CountryFilter } from '../CountryFilter';
+import { CountryFilter } from '../country-filter/CountryFilter';
 import { useTranslation } from 'react-i18next';
 
 export type CategoriesStackScreens = {
